@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Practice</title>
+  </head>
+  <body>
+    <h1>DOM Practice</h1>
+    <img src="test1.jpg" alt="testimg" id="testimg" />
+    <button onclick="document.getElementById('testimg').src='test2.jpg'">
+      Change Me
+    </button>
+    <button onclick="document.getElementById('testimg').src='test1.jpg'">
+      Change Me Back
+    </button>
+    <!--  -->
+    <h4>Id Change</h4>
+    <p id="phara">Test</p>
+    <!--  -->
+    <h4>Class Change</h4>
+    <p class="phara">Test</p>
+    <!--  -->
+    <h4>Sub Change</h4>
+    <div id="div">
+      <p>Test</p>
+    </div>
+    <!--  -->
+    <h4>Quary Change</h4>
+    <p class="demo">Test</p>
+    <p class="demo">Test</p>
+    <h2 id="date"></h2>
+    <!--  -->
+    <h4>Form Change</h4>
+    <form action="#" name="myform" onsubmit="formfunction(event)">
+      <p id="demo">Input Numbers Only</p>
+      <input type="text" name="numb" />
+      <button>SUBMIT</button>
+    </form>
+    <!--  -->
+    <h4>OnClick Event Test</h4>
+    <h1 id="head">I Can Change</h1>
+    <h1 id="change"></h1>
+    <button onclick="btnfunction()">Click Me!</button>
+    <button onclick="btncfuntion()">Change Me Back!</button>
+    <!--  -->
+    <h4>.This KeyWord Change</h4>
+    <h1 onclick="this.innerHTML='Thank You:)'">Click ME!!</h1>
+    <!--  -->
+    <h4>Function with Parameter Change(.this)</h4>
+    <h1 onclick="headfunction(this)">Click ME!!</h1>
+    <!--  -->
+    <h4>UL Change</h4>
+    <p>Change the List</p>
+    <ul id="ul">
+      <li>Test</li>
+      <li>Test</li>
+      <li>Test</li>
+    </ul>
+    <!--  -->
+    <h4>Mouse Event</h4>
+    <button id="mevent">Click Me</button>
+    <button onclick="document.getElementById('pevent').innerHTML=''">
+      Clear
+    </button>
+    <p id="pevent"></p>
+    <!--  -->
+    <h4>Form Value Print</h4>
+    <p id="validmsg"></p>
+    <p id="agemsg"></p>
+    <form action="#" id="v-form" onsubmit="formprint(event)">
+      <label for="name">Name :</label>
+      <input type="text" name="name" />
+      <label for="age">Age :</label>
+      <input type="number" name="age" /><br />
+      <input type="submit" />
+    </form>
+    <p id="print"></p>
+    <!-- JavaScript -->
+    <script>
+      document.getElementsByTagName("h1")[0].style.fontSize = "70px";
+      document.getElementById("testimg").style.border = "5px solid black";
+      document.getElementById("phara").innerHTML = "ID Changed";
+      document.getElementsByClassName("phara")[0].innerHTML = "Class Changed";
+      document.getElementById("div").getElementsByTagName("p")[0].innerHTML =
+        "SUB Changed";
+      document.querySelectorAll(".demo")[1].innerHTML = "Quaray [2] changed";
+      document.getElementById("date").innerHTML =
+        "Today Date is : " + new Date().toDateString();
+      function formfunction(event) {
+        event.preventDefault();
+        let val = document.forms["myform"]["numb"].value;
+        let massage = document.getElementById("demo");
+        if (isNaN(val) || val < 1) {
+          massage.innerHTML = "Input is NOT a Number";
+          massage.style.color = "OrangeRed";
+        } else {
+          massage.innerHTML = "Valid Input";
+          massage.style.color = "Green";
+        }
+        if (val === "") {
+          massage.innerHTML = "Input Numbers Only";
+          massage.style.color = "black";
+        }
+      }
+      function btnfunction() {
+        document.getElementById("head").style.display = "none";
+        let heading = document.getElementById("change");
+        heading.style.display = "block";
+        heading.innerHTML = "Suprise!!!";
+        heading.style.color = "Gold";
+        heading.style.fontFamily = "Verdana";
+      }
+      function btncfuntion() {
+        document.getElementById("change").style.display = "none";
+        document.getElementById("head").style.display = "block";
+      }
+      function headfunction(head) {
+        head.innerHTML = "Suprise!!";
+        head.style.color = "Indigo";
+      }
+      let first = document.getElementById("ul").firstElementChild;
+      first.innerHTML = "<strong>Stop</strong>";
+      first.style.color = "Red";
+      first.style.listStyle = "none";
+      let middle = document.getElementById("ul").children[1];
+      middle.innerHTML = "<strong>Start</strong>";
+      middle.style.color = "Orange";
+      middle.style.listStyle = "none";
+      let last = document.getElementById("ul").lastElementChild;
+      last.innerHTML = "<strong>Go</strong>";
+      last.style.color = "Green";
+      last.style.listStyle = "none";
+      // --------------- //
+      let ebtn = document.getElementById("mevent");
+      ebtn.addEventListener("click", clickfunction);
+      ebtn.addEventListener("mouseover", overfunction);
+      ebtn.addEventListener("mouseout", outfunction);
+      let pevent = document.getElementById("pevent");
+      function clickfunction() {
+        pevent.innerHTML += "Clicked <br>";
+      }
+      function overfunction() {
+        pevent.innerHTML += "MouseOver <br>";
+      }
+      function outfunction() {
+        pevent.innerHTML += "MouseOut <br>";
+      }
+      // ---------------------- //
+      function formprint(a) {
+        a.preventDefault();
+        let print = document.getElementById("print");
+        let errorname = document.getElementById("validmsg");
+        let errorage = document.getElementById("agemsg");
+        let name = event.target.name.value;
+        let age = event.target.age.value;
+        if (name === "") {
+          errorname.innerHTML = "Invalid Name";
+          print.innerHTML = "";
+        } else {
+          errorname.innerHTML = "";
+          print.innerHTML += `NAME : ${name}<br/>`;
+        }
+        if (age < 18) {
+          errorage.innerHTML = "Minor Age";
+          print.innerHTML = "";
+        } else {
+          errorage.innerHTML = "";
+          print.innerHTML += `AGE : ${age}`;
+        }
+      }
+    </script>
+  </body>
+</html>
